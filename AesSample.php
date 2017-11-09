@@ -8,8 +8,8 @@ function DesDecrypt($decrypt) {
 
     // 定义变量
 
-    $key_base = "quanGeZhenShuaiA";
-    $iv_base = "quanGeZhenBangDe";
+    $key_base = "quanGeZhen123456";
+    $iv_base = "quanGeZhen123456";
 
     $key = md5($key_base);
     $iv = $iv_base;
