@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AES demo</title>
+
+</head>
+<body>
+<div id="content"></div>
+
+
+<input type='button' value='解密' id ='id2'><br/>
+<input type='text' id ='id3'><br/>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/crypto-js.js"></script>
+<script>
+		var data = '55555555';		// 测试数据	
+		var key_base="quanGeZhenShuaiA"; //16 bit
+		var iv_base="quanGeZhenBangDe"; //16 bit
+		var url = "http://127.0.0.1:8080/AesSample.php"
+		
+//加密函数
+ var get=function(a){
+     var key_hash=CryptoJS.MD5(key_base); 
+     var key=CryptoJS.enc.Utf8.parse(key_hash);
+     var iv=CryptoJS.enc.Utf8.parse(iv_base);
+     var res=CryptoJS.AES.encrypt(a,key,{iv:iv,mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.ZeroPadding});
+     return res.toString()
+ }	
+	var decrypt_data=get(data);
+        
+    $(function(){
+            
+		var requestData={decrypt:decrypt_data};
+			//加密内容 统一用json格式加密
+
+        $("#id2").click(function(){
+		alert(data);
+		console.log('密文：'+get(data)) ;
+			$.ajax(url, {
+				data: requestData,
+				dataType: 'jsonp',
+				crossDomain: true,
+				success: function(data) {
+                                    console.log('123123');
+                                    console.log(data);
+                                    $("#id3").attr("value",data);;
+				}
+			
+			})
+
+		});
+	});
+	
+</script>
+
+</body>
+</html>
