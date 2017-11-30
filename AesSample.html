@@ -53,6 +53,26 @@
 		});
 	});
 	
+	//附带前端解密函数
+	
+	function decrypt(word) {
+	var key_hash=CryptoJS.MD5(key_base); 
+    var key=CryptoJS.enc.Utf8.parse(key_hash);
+    var iv=CryptoJS.enc.Utf8.parse(iv_base);
+
+    var decrypt = CryptoJS.AES.decrypt(word, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.ZeroPadding
+    });
+	
+    var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+    return decryptedStr.toString();
+	
+}
+
+console.log(decrypt('sIsKvVoyXAsx1PW1Y4n6Ry2Dma0g8VLzw066WIfThvo='));
+	
 </script>
 
 </body>
